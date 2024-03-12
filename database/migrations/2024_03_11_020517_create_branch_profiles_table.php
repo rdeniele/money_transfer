@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('branch_profiles', function (Blueprint $table) {
-            $table->id();
-            $table->string('branch_name');
-            $table->string('branch_code');
-            $table->string('country_iso_code');
-            $table->timestamps();
-        });
+      Schema::create('branch_profiles', function (Blueprint $table) {
+        // $table->unsignedBigInteger('branch_id');
+        // $table->foreign('branch_id')->references('id')->on('users'); // Foreign key referencing users table
+        $table->id();
+
+        $table->string('branch_code');
+        $table->string('country_iso_code');
+        $table->timestamps();
+      });
     }
 
     /**
