@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MoneyTransferController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::view('/users', 'UserManagement.users');
+
+Route::get('/', [MoneyTransferController::class, 'index']);
+Route::post('/users', [MoneyTransferController::class, 'add']);
+Route::get('/delete/{id}', [MoneyTransferController::class, 'delete']);
+Route::get('/edit/{id}', [MoneyTransferController::class, 'edit']);
+Route::post('/edit/{id}', [MoneyTransferController::class, 'update']);

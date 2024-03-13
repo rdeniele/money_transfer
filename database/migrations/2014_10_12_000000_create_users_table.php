@@ -20,7 +20,7 @@ return new class extends Migration
         $table->string('last_name', 25);
         $table->date('birthdate');
         $table->string('full_address', 255);
-        $table->integer('branch_assigned');
+        $table->string('branch_assigned');
     
         // Relationship constraints
         $table->integer('user_type_id');
