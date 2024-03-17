@@ -40,12 +40,12 @@
         <p>
             <label for="branch_assigned">Branch Assigned:</label>
             <select name="branch_assigned" id="branch_assigned" required>
-                <option value="0">Select Branch</option>
-                <option value="1 - Bacolod">Bacolod</option>
-                <option value="2 - Cebu">Cebu</option>
-                <option value="3 - Manila">Manila</option>
-                <option value="4 -  Makati">Makati</option>
-                <option value="5 -  Tawi-tawi">Tawi-tawi</option>
+                <option value="None">Select Branch</option>
+                <option value="Bacolod">Bacolod</option>
+                <option value="Cebu">Cebu</option>
+                <option value="Manila">Manila</option>
+                <option value="Makati">Makati</option>
+                <option value="Tawi-tawi">Tawi-tawi</option>
             </select>
         </p>
         <p>
@@ -79,37 +79,43 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
                 <th>Email</th>
                 <th>Birthdate</th>
                 <th>Address</th>
                 <th>Branch</th>
                 <th>User Type</th>
                 <th>Password</th>
-            </tr>            
-            </thead>
+            </tr>  
+          </thead>
             <tbody>
-                @foreach ($users as $user)
-                    <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->last_name }}, {{ $user->first_name }} 
-                            @if ($user->middle_name)
-                                {{ $user->middle_name }}.
-                            @endif
-                        </td>
-                        
-                        <td>{{ $user->birthdate }}</td>
-                        <td>{{ $user->full_address }}</td>
-                        <td>{{ $user->branch_assigned  }}</td>
-                        <td>{{ $user->user_type_id }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->password }}</td> 
-                        </tr>
-                @endforeach
+                @if (count($users) > 0)  @foreach ($users as $user)
+                <tr>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->first_name }}
+                    <td>{{ $user->middle_name }}
+                    <td>{{ $user->last_name }}
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->birthdate }}</td>
+                    <td>{{ $user->full_address }}</td>
+                    <td>{{ $user->branch_assigned  }}</td>
+                    <td>{{ $user->user_type_id }}</td>
+                    <td>{{ $user->password }}</td> 
+                    <td><a href="{{ route('UserManagement.user_edit', ['id' => $user->id]) }}" class="btn">
+                        Edit</a> </td>
+                    </tr>
+              @endforeach
+              @else
+              <tr>
+                <td colspan="10">No users found!</td>
+              </tr>
+            @endif
             </tbody>
         </table>
-    @else
-        <p>No users found.</p>
-    @endif
+        @else
+        <p>User not found!</p>
+      @endif
 </body>
 </html>

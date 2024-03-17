@@ -10,80 +10,70 @@ use Illuminate\Support\Facades\Config; // For configuration values
 
 class MoneyTransferController extends Controller
 {
-    public function index(Request $req)
-    {
-        $user = User::all();
-        return view('UserManagement.users')->with("users", $user);
+  public function index(Request $request)
+  {
+    $user = User::all();
+    return view('UserManagement.users')->with("users", $user);
+  }
+
+  public function add(Request $request)
+  {
+    $validator = Validator::make($request->all(), [
+      'first_name' => 'required|max:25',
+      'last_name' => 'required|max:25',
+      'email' => 'required|email|unique:users', // Unique email validation
+      'password' => 'required|min:6',
+      // Add validation rules for other fields (birthdate, address, etc.)
+    ]);
+
+    if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator);
     }
 
-    public function add(Request $req)
-    {
-        $validator = Validator::make($req->all(), [
-            'first_name' => 'required|max:25',
-            'last_name' => 'required|max:25',
-            'email' => 'required|email|unique:users', // Unique email validation
-            'password' => 'required|min:6',
-            // Add validation rules for other fields (birthdate, address, etc.)
-        ]);
+    $user = new User;
+    $user->first_name = $request->first_name;
+    $user->middle_name = $request->middle_name;
+    $user->last_name = $request->last_name;
+    $user->birthdate = $request->birthdate;
+    $user->full_address = $request->full_address;
+    $user->branch_assigned = $request->branch_assigned;
+    $user->user_type_id = $request->user_type_id;
+    $user->email = $request->email;
+    $user->password = Hash::make($request->password);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
+    $user->save();
+    return redirect()->back()->with('message', 'User added successfully!'); // Flash message
+  }
 
-        $user = new User;
-        $user->first_name = $req->first_name;
-        $user->middle_name = $req->middle_name;
-        $user->last_name = $req->last_name;
-        $user->birthdate = $req->birthdate;
-        $user->full_address = $req->full_address;
-        $user->branch_assigned = $req->branch_assigned;
-        $user->user_type_id = $req->user_type_id;
-        $user->email = $req->email;
-        $user->password = Hash::make($req->password); 
+  public function delete(Request $request)
+  {
+    $user = User::find($request->id);
+    $user->delete();
+    return redirect()->back();
+  }
 
-        $user->save();
-        return redirect()->back()->with('message', 'User added successfully!'); // Flash message
-    }
+  public function edit(Request $request)
+  {
+    $user = User::find($request->id);
+    return view('UserManagement.user_edit', compact('user'));
+  }
 
-    public function delete(Request $req)
-    {
-        $user = User::find($req->id);
-        $user->delete();
-        return redirect()->back();
-    }
+  public function update(Request $request, User $user)
+  {
+    $user = User::find($request->id);
 
-    public function edit(Request $req)
-    {
-        $user = User::find($req->id);
-        return view('edit')->with("contact", $user);
-    }
+    $user->update([
+      'first_name' => $request->first_name,
+      'middle_name' =>$request->middle_name,
+      'last_name' => $request->last_name,
+      'birthdate' => $request->birthdate,
+      'full_address' => $request->full_address,
+      'branch_assigned' => $request->branch_assigned,
+      'user_type_id' => $request->user_type_id,
+      'email' => $request->email,
+      'password' => $request->password ? Hash::make($request->password) : $user->password,
+    ]);
 
-    public function update(Request $req)
-    {
-        $validator = Validator::make($req->all(), [
-            'first_name' => 'required|max:25',
-            'last_name' => 'required|max:25',
-            'email' => 'required|email|unique:users,email,' . $req->id, // Unique validation excluding current user
-            'password' => 'nullable|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
-
-        $user = User::find($req->id);
-        $user->update([
-            'first_name' => $req->first_name,
-            'middle_name' => $req->middle_name,
-            'last_name' => $req->last_name,
-            'birthdate' => $req->birthdate,
-            'full_address' => $req->full_address,
-            'branch_assigned' => $req->branch_assigned,
-            'user_type_id' => $req->user_type_id,
-            'email' => $req->email,
-            'password' => $req->password ? Hash::make($req->password) : $user->password, // Update password only if provided
-        ]);
-
-        return redirect()->back()->with('message', 'User updated successfully!'); // Flash message
-    }
+    return redirect()->back()->with('message', 'User updated successfully!');
+  }
 }
