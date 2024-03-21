@@ -16,6 +16,7 @@ return new class extends Migration
         // $table->foreign('branch_id')->references('id')->on('users'); // Foreign key referencing users table
         $table->id();
 
+        $table->string('branch_name');
         $table->string('branch_code');
         $table->string('country_iso_code');
         $table->timestamps();

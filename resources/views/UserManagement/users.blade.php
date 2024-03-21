@@ -103,8 +103,19 @@
                     <td>{{ $user->branch_assigned  }}</td>
                     <td>{{ $user->user_type_id }}</td>
                     <td>{{ $user->password }}</td> 
-                    <td><a href="{{ route('UserManagement.user_edit', ['id' => $user->id]) }}" class="btn">
-                        Edit</a> </td>
+                    <td>
+                        <a href="{{ route('UserManagement.edit', ['id' => $user->id]) }}" class="btn">
+                          Edit
+                        </a>
+                    </td>
+                    <td>
+                    <form action="{{ route('UserManagement.delete',$user->id) }}" method="GET" onsubmit="return confirm('{{ ('Are you sure you want to delete this? ') }}');">
+                        @csrf
+                        <button type="submit" class="submitbtn">
+                            Delete
+                        </button>
+                        </form>
+                    </td>
                     </tr>
               @endforeach
               @else
