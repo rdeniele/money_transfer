@@ -50,7 +50,7 @@
         </div>
     @endif
 
-    @if (isset($branch_profile))  
+    @if (isset($branch ))  
     <table>
         <thead>
             <tr>
@@ -61,20 +61,20 @@
             </tr>  
           </thead>
             <tbody>
-                @if (count($branch_profile) > 0) 
-                @foreach ($branch_profile as $branch_profiles)
+                @if (count($branch ) > 0) 
+                @foreach ($branch  as $branchProfile)
                 <tr>
-                    <td>{{ $branch_profiles->id }}</td>
-                    <td>{{ $branch_profiles->branch_name }}
-                    <td>{{ $branch_profiles->branch_code }}
-                    <td>{{ $branch_profiles->country_iso_code }}
+                    <td>{{ $branchProfile->id }}</td>
+                    <td>{{ $branchProfile->branch_name }}
+                    <td>{{ $branchProfile->branch_code }}
+                    <td>{{ $branchProfile->country_iso_code }}
                     <td>
-                        <a href="{{ route('BranchManagement.edit', ['id' => $branch_profiles->id]) }}" class="btn">
+                        <a href="{{ route('BranchManagement.edit', ['id' => $branchProfile->id]) }}" class="btn">
                           Edit
                         </a>
                     </td>
                     <td>
-                        <form action="{{ route('BranchManagement.delete',$branch_profiles->id) }}" method="GET" onsubmit="return confirm('{{ ('Are you sure you want to delete this? ') }}');">
+                        <form action="{{ route('BranchManagement.delete',$branchProfile->id) }}" method="GET" onsubmit="return confirm('{{ ('Are you sure you want to delete this? ') }}');">
                             @csrf
                             <button type="submit" class="submitbtn">
                                 Delete

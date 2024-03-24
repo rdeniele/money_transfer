@@ -10,38 +10,38 @@ class BranchManagementController extends Controller
 {
     public function index(Request $request)
     {
-      $branch_profile = branch_profile::all();
-      return view('BranchManagement.branch')->with("branch", $branch_profile);
+      $branchProfile = branch_profile::all();
+      return view('BranchManagement.branch')->with("branch", $branchProfile);
     }
   
     public function store(Request $request)
     {
      
-      $branch_profile = new branch_profile;
-      $branch_profile->branch_name = $request->branch_name;
-      $branch_profile->branch_code = $request->branch_code;
-      $branch_profile->country_iso_code = $request->country_iso_code;
+      $branchProfile = new branch_profile;
+      $branchProfile->branch_name = $request->branch_name;
+      $branchProfile->branch_code = $request->branch_code;
+      $branchProfile->country_iso_code = $request->country_iso_code;
   
-      $branch_profile->save();
+      $branchProfile->save();
       return redirect()->back()->with('message', 'Branch added successfully!'); // Flash message
     }
 
     public function delete(Request $request)
     {
-      $branch_profile = branch_profile::find($request->id);
-      $branch_profile->delete();
+      $branchProfile = branch_profile::find($request->id);
+      $branchProfile->delete();
       return redirect()->back();
     }
     public function edit(Request $request)
     {
-      $branch_profile = branch_profile::find($request->id);
+      $branchProfile = branch_profile::find($request->id);
       return view('BranchManagement.edit', compact('branch'));
     }
   
-    public function update(Request $request, branch_profile $branch_profile)
+    public function update(Request $request, branch_profile $branchProfile)
     {
       // $user = User::find($request->id);
-      $branch_profile->update([
+      $branchProfile->update([
         
         'branch_name' => $request->branch_name,
         'branch_code' =>$request->branch_code,

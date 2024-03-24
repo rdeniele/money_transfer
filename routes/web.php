@@ -49,6 +49,8 @@ Route::get('/branch', function () {
 // });
 
 
+// login
+Route::post('/login', [LoginController::class, 'login']);
 
 // user management
 Route::get('/', [UserManagementController::class, 'index']);
@@ -65,3 +67,5 @@ Route::post('/branch', [BranchManagementController::class, 'store']);
 Route::get('BranchManagement/branches/{id}/edit',  [BranchManagementController::class, 'edit'])->name('BranchManagement.edit');
 Route::put('/branch/update', [BranchManagementController::class, 'update'])->name('BranchManagement.update');
 Route::get('/branch/delete/{id}', [BranchManagementController::class, 'delete'])->name('BranchManagement.delete'); 
+
+// money transfer
