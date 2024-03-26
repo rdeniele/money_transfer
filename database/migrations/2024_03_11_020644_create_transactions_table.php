@@ -17,11 +17,11 @@ return new class extends Migration
         $table->string('reference_number');
         $table->string('sender_name');
         $table->string('sender_contact');
-        $table->string('recipinet_name');
-        $table->string('recipinet_contact');
+        $table->string('receiver_name');
+        $table->string('receiver_contact');
         $table->string('transaction_type');
-        $table->float('amount_local_currency');
-        $table->string('currency_conversion_code');
+        $table->float('amount');
+        $table->string('conversion_rate');
         $table->string('amount_converted');
         $table->string('transaction_status');
 
@@ -34,14 +34,16 @@ return new class extends Migration
 
         // $table->unsignedBigInteger('branch_received');
         // $table->foreign('branch_received')->references('id')->on('branches');
-        $table->float('branch_received');
+        $table->integer('branch_received');
 
         // $table->unsignedBigInteger('transaction_fee_id')->nullable(); 
         // $table->foreign('transaction_fee_id')->references('id')->on('transaction_fees');
-        $table->float('transfer_fee_id');
+        $table->integer('transfer_fee_id');
 
         //transaction date and time
-        $table->date('datetime_transaction'); 
+        $table->datetime('datetime_transaction');
+        $table->date('created_at'); 
+        $table->date('updated_at'); 
         
     });
 }

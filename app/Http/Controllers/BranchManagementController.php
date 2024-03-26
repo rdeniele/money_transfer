@@ -35,7 +35,7 @@ class BranchManagementController extends Controller
     public function edit(Request $request)
     {
       $branchProfile = branch_profile::find($request->id);
-      return view('BranchManagement.edit', compact('branch'));
+      return view('BranchManagement.edit', compact('branchProfile'));
     }
   
     public function update(Request $request, branch_profile $branchProfile)

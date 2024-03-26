@@ -40,7 +40,6 @@ class UserManagementController extends Controller
       $user->user_type_id = $request->user_type_id;
       $user->email = $request->email;
       $user->password = Hash::make($request->password);
-  
       $user->save();
       return redirect()->back()->with('message', 'User added successfully!'); // Flash message
     }
