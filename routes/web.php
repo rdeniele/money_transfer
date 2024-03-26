@@ -34,9 +34,9 @@ Route::prefix('users')->group(function () {
 });
 
 // Branch management routes
-Route::prefix('branches')->group(function () {
+Route::prefix('branch')->group(function () {
     Route::get('/', [BranchManagementController::class, 'index'])->name('BranchManagement.index');
-    Route::post('/', [BranchManagementController::class, 'store'])->name('BranchManagement.store');
+    Route::post('/', [BranchManagementController::class, 'store'])->name('BranchManagement.branch');
     Route::get('/edit/{id}', [BranchManagementController::class, 'edit'])->name('BranchManagement.edit');
     Route::put('/update', [BranchManagementController::class, 'update'])->name('BranchManagement.update');
     Route::get('/delete/{id}', [BranchManagementController::class, 'delete'])->name('BranchManagement.delete');

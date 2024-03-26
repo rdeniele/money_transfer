@@ -16,7 +16,7 @@
         </div>
     @endif
 
-    <form method="POST" action="/branch">  @csrf
+    <form method="POST" action="/branches">  @csrf
         <p>
             <label for="branch_name">Branch Name:</label>
             <select name="branch_name" id="branch_name" required>
@@ -74,7 +74,7 @@
                         </a>
                     </td>
                     <td>
-                        <form action="{{ route('BranchManagement.delete',$branchProfile->id) }}" method="GET" onsubmit="return confirm('{{ ('Are you sure you want to delete this? ') }}');">
+                        <form action="{{ route('BranchManagement.delete', ['id' => $branchProfile->id]) }}" method="GET" onsubmit="return confirm('{{ ('Are you sure you want to delete this? ') }}');">
                             @csrf
                             <button type="submit" class="submitbtn">
                                 Delete
