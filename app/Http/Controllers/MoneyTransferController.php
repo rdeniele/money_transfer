@@ -67,23 +67,23 @@ class MoneyTransferController extends Controller
       // $user = User::find($request->id);
       $moneyTransfer->update([
         
-        'referenceNumber' => $request->reference_number,
-        'senderName' =>$request->sender_name,
-        'senderContact' => $request->sender_contact,
-        'recipientName' => $request->recipient_name,
-        'recipientContact' => $request->recipient_contact	,
-        'transactionType' => $request->transaction_type	,
-        'amount' => $request->amount_local_currency	,
-        'currencyConversionCode' => $request->currency_conversion_code	,
-        'convertedAmount' => $request->amount_converted	,
-        'transactionStatus' => $request->transaction_status	,
-        'branchSent' => $request->branch_sent	,
-        'branchRecieved' => $request->branch_received	,
-        'transferFeeId' => $request->transfer_fee_id	,
-        'datetimeTransaction' => $request->datetime_transaction	,
+        'reference_number' => $request->reference_number,
+        'sender_name' =>$request->sender_name,
+        'sender_contact' => $request->sender_contact,
+        'recipient_name' => $request->recipient_name,
+        'recipient_contact' => $request->recipient_contact	,
+        'transaction_type' => $request->transaction_type	,
+        'amount' => $request->amount	,
+        'conversion_rate' => $request->conversion_rate	,
+        'amount_converted' => $request->amount_converted	,
+        'transaction_status' => $request->transaction_status	,
+        'branch_sent' => $request->branch_sent	,
+        'branch_received' => $request->branch_received	,
+        'transfer_fee_id' => $request->transfer_fee_id	,
+        'datetime_transaction' => $request->datetime_transaction	,
       ]);
   
-      return redirect()->back()->with('message', 'Branch updated successfully!');
+      return redirect()->back()->with('message', 'Transactions updated successfully!');
     }
  
 }

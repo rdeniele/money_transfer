@@ -163,11 +163,11 @@ currencySelect.addEventListener('change', convertCurrency);
                 <td>{{ $transaction->reference_number }}</td>
                 <td>{{ $transaction->sender_name }}</td>
                 <td>{{ $transaction->sender_contact }}</td>
-                <td>{{ $transaction->recipient_name }}</td>
-                <td>{{ $transaction->recipient_contact }}</td>
+                <td>{{ $transaction->receiver_name }}</td>
+                <td>{{ $transaction->receiver_contact }}</td>
                 <td>{{ $transaction->transaction_type }}</td>
-                <td>{{ $transaction->amount_local_currency }}</td>
-                <td>{{ $transaction->currency_conversion_code }}</td>
+                <td>{{ $transaction->amount }}</td>
+                <td>{{ $transaction->conversion_rate }}</td>
                 <td>{{ $transaction->amount_converted }}</td>
                 <td>{{ $transaction->transaction_status }}</td>
                 <td>{{ $transaction->branch_sent }}</td>

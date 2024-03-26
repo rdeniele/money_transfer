@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MoneyTransferController;
 use App\Http\Controllers\BranchManagementController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\DashboardController;  // Add DashboardController
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +52,7 @@ Route::prefix('transactions')->group(function () {
     Route::get('/delete/{id}', [MoneyTransferController::class, 'delete'])->name('MoneyTransfer.delete');
 });
 
-// Default route (can be changed to a more specific route)
-Route::get('/', function () {
-    return redirect('/dashboard'); // Redirect to dashboard
-});
+
+// Route::get('/', function () {
+//     return redirect('/dashboard');
+// });
