@@ -56,12 +56,23 @@ class MoneyTransferController extends Controller
       $moneyTransfer->delete();
       return redirect()->back();
     }
+    // public function edit(Request $request)
+    // {
+    //   $moneyTransfer = transactions::find($request->id);
+    //   $transactions = transactions::all();
+    //   return view('MoneyTransfer.edit', compact('transactions'));
+    // }
     public function edit(Request $request)
-    {
-      $moneyTransfer = transactions::find($request->id);
-      $transactions = transactions::all();
-      return view('MoneyTransfer.edit', compact('transactions'));
-    }
+{
+  $transactions = transactions::find($request->id); // Use Transaction (assuming your model name)
+
+  if (!$transactions) {
+    // Handle case where transaction not found (optional)
+    return abort(404); // Redirect to a 404 page (optional)
+  }
+
+  return view('MoneyTransfer.edit', compact('transactions'));
+}
     public function update(Request $request, transactions $moneyTransfer)
     {
       // $user = User::find($request->id);
@@ -85,7 +96,21 @@ class MoneyTransferController extends Controller
   
       return redirect()->back()->with('message', 'Transactions updated successfully!');
     }
- 
+
+    public function search(Request $request)
+  {
+    $searchTerm = $request->input('search');
+
+  
+    $transactions = transactions::where('reference_number', 'like', "%{$searchTerm}%")
+                                ->orWhere('sender_name', 'like', "%{$searchTerm}%")
+                                ->orWhere('receiver_name', 'like', "%{$searchTerm}%")
+                                ->paginate(10); 
+
+    return view('MoneyTransfer.index', compact('transactions'));
+  }
 }
+ 
+
 
 

@@ -60,46 +60,62 @@
           
 
           <script>
-           const amountInput = document.getElementById('amount');
-const convertedAmountInput = document.getElementById('amount_converted');
-const currencySelect = document.getElementById('conversion_rate');
+            const amountInput = document.getElementById('amount');
+ const convertedAmountInput = document.getElementById('amount_converted');
+ const currencySelect = document.getElementById('conversion_rate');
+ 
+ function convertCurrency() {
+   const amount = parseFloat(amountInput.value);
+   const fromCurrency = 'PHP'; // Replace with actual source currency
+   const toCurrency = currencySelect.value;
+   const conversionRate = getConversionRate(fromCurrency, toCurrency);
+ 
+   if (isNaN(amount) || !conversionRate) {
+     convertedAmountInput.value = 'Invalid Input or Rate Unavailable';
+     return;
+   }
+ 
+   const convertedAmount = amount * conversionRate;
+   convertedAmountInput.value = convertedAmount.toFixed(2); // Format to 2 decimal places
+ }
+ 
+ function getConversionRate(from, to) {
+   // Replace this function with your logic to define conversion rates
+   // This example uses a simple object but could be extended for more currencies
+   const conversionRates = {
+     'PHP/USD': 0.020,
+     'USD/PHP': 50.0,
+     'PHP/PHP': 1,
+     // Add rates for other currencies if needed
+   };
+ 
+   const key = `${from}/${to}`;
+   return conversionRates[key] || null; // Return null for unavailable rates
+ }
+ 
+ amountInput.addEventListener('keyup', convertCurrency);
+ currencySelect.addEventListener('change', convertCurrency);
+           </script>
 
-function convertCurrency() {
-  const amount = parseFloat(amountInput.value);
-  const fromCurrency = 'PHP'; // Replace with actual source currency
-  const toCurrency = currencySelect.value;
-  const conversionRate = getConversionRate(fromCurrency, toCurrency);
+<p>
+  <label for="transaction_status">Transaction Status:</label>
+  <input type="text" id="transaction_status" name="transaction_status">
+</p>
+<p>
+  <label for="branch_sent">Branch Sent:</label>
+  <input type="text" id="branch_sent" name="branch_sent">
+</p>
+<p>
+  <label for="branch_received">Branch Received:</label>
+  <input type="text" id="branch_received" name="branch_received">
+</p>
+<p>
+  <label for="transfer_fee_id">Transfer Fee ID:</label>
+  <input type="text" id="transfer_fee_id" name="transfer_fee_id">
+</p>
+{{-- <p>Date Time Transaction: {{ Carbon::now() }}</p> --}}
+<p>Current Date and Time: {{ now() }}</p>
+<input type="hidden" name="datetime_transaction" id="datetime_transaction" value="{{ now() }}">
 
-  if (isNaN(amount) || !conversionRate) {
-    convertedAmountInput.value = 'Invalid Input or Rate Unavailable';
-    return;
-  }
-
-  const convertedAmount = amount * conversionRate;
-  convertedAmountInput.value = convertedAmount.toFixed(2); // Format to 2 decimal places
-}
-
-function getConversionRate(from, to) {
-  // Replace this function with your logic to define conversion rates
-  // This example uses a simple object but could be extended for more currencies
-  const conversionRates = {
-    'PHP/USD': 0.020,
-    'USD/PHP': 50.0,
-    'PHP/PHP': 1,
-    // Add rates for other currencies if needed
-  };
-
-  const key = `<span class="math-inline">\{from\}/</span>{to}`;
-  return conversionRates[key] || null; // Return null for unavailable rates
-}
-
-amountInput.addEventListener('keyup', convertCurrency);
-currencySelect.addEventListener('change', convertCurrency);
-          </script>
-
-        <p>
-            <label for="transaction_status">Transaction Status:</label>
-            <input type="text" id="transaction_status" name="transaction_status">
-        </p>
-        <p>
-            <label for="branch_sent">Branch Sent:</
+<button type="submit">Submit</button>
+</form>

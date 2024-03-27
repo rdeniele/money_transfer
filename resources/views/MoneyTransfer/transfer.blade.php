@@ -128,7 +128,7 @@ currencySelect.addEventListener('change', convertCurrency);
     @endif
     
     @if (isset($transactions))
-    <form action="{{ route('transactions.search') }}" method="GET" class="search-form">
+    <form action="{{ route('MoneyTransfer.index') }}" method="GET" class="search-form">
       <input type="text" name="search" placeholder="Search transactions...">
       <button type="submit">Search</button>
     </form>
@@ -157,32 +157,32 @@ currencySelect.addEventListener('change', convertCurrency);
         </thead>
         <tbody>
           @if (count($transactions) > 0)
-            @foreach ($transactions as $transaction)
+            @foreach ($transactions as $transactions)
               <tr>
-                <td>{{ $transaction->id }}</td>
-                <td>{{ $transaction->reference_number }}</td>
-                <td>{{ $transaction->sender_name }}</td>
-                <td>{{ $transaction->sender_contact }}</td>
-                <td>{{ $transaction->receiver_name }}</td>
-                <td>{{ $transaction->receiver_contact }}</td>
-                <td>{{ $transaction->transaction_type }}</td>
-                <td>{{ $transaction->amount }}</td>
-                <td>{{ $transaction->conversion_rate }}</td>
-                <td>{{ $transaction->amount_converted }}</td>
-                <td>{{ $transaction->transaction_status }}</td>
-                <td>{{ $transaction->branch_sent }}</td>
-                <td>{{ $transaction->branch_received }}</td>
-                <td>{{ $transaction->transfer_fee_id }}</td>
-                <td>{{ $transaction->datetime_transaction }}</td>
+                <td>{{ $transactions->id }}</td>
+                <td>{{ $transactions->reference_number }}</td>
+                <td>{{ $transactions->sender_name }}</td>
+                <td>{{ $transactions->sender_contact }}</td>
+                <td>{{ $transactions->receiver_name }}</td>
+                <td>{{ $transactions->receiver_contact }}</td>
+                <td>{{ $transactions->transaction_type }}</td>
+                <td>{{ $transactions->amount }}</td>
+                <td>{{ $transactions->conversion_rate }}</td>
+                <td>{{ $transactions->amount_converted }}</td>
+                <td>{{ $transactions->transaction_status }}</td>
+                <td>{{ $transactions->branch_sent }}</td>
+                <td>{{ $transactions->branch_received }}</td>
+                <td>{{ $transactions->transfer_fee_id }}</td>
+                <td>{{ $transactions->datetime_transaction }}</td>
     
                 <td>
-                    <a href="{{ route('MoneyTransfer.edit', ['id' => $transaction->id]) }}" class="btn">
+                    <a href="{{ route('MoneyTransfer.edit', ['id' => $transactions->id]) }}" class="btn">
             Edit
                     </a>
                 </td>
 
                 <td>
-                  <form action="{{ route('MoneyTransfer.delete',['id' => $transaction->id])  }}" method="GET" onsubmit="return confirm('{{ ('Are you sure you want to delete this? ') }}');">
+                  <form action="{{ route('MoneyTransfer.delete',['id' => $transactions->id])  }}" method="GET" onsubmit="return confirm('{{ ('Are you sure you want to delete this? ') }}');">
                     @csrf
                     <button type="submit" class="submitbtn">
                       Delete
