@@ -15,7 +15,11 @@ class UserManagementController extends Controller
       $user = User::all();
       return view('UserManagement.users')->with("users", $user);
     }
-  
+      public function showUsers()
+  {
+    $users = User::all();
+    return view('Dashboard.dashboard', compact('users'));
+  }
     public function add(Request $request)
     {
       $validator = Validator::make($request->all(), [

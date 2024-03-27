@@ -19,10 +19,12 @@ use App\Http\Controllers\LoginController;
 
 // Login route
 Route::post('/login', [LoginController::class, 'login']);
-
+// dashboard
 Route::get('/', function () {
     return view('Dashboard.dashboard');
 });
+Route::get('/', [UserManagementController::class, 'showUsers'])->name('users.showUsers');
+
 
 // User management routes
 Route::prefix('users')->group(function () {
